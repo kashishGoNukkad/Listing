@@ -1,0 +1,1040 @@
+// const categoryFeatures = [
+//   {"label": "Product Type", "name": "feed_product_type", "type": "text", "value":"" },
+//   {"label": "Seller SKU", "name": "item_sku", "type": "text", "value":"" },
+//   {"label": "Brand Name", "name": "brand_name", "type": "text", "value":"" },
+//   {"label": "Product Name", "name": "item_name", "type": "text", "value":"" },
+//   {"label": "Manufacturer", "name": "manufacturer", "type": "text", "value":"" }
+// ];
+
+// export default categoryFeatures;
+
+const categoryFeatures = [
+  {
+    "label": "Product Type",
+    "name": "feed_product_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Seller SKU",
+    "name": "item_sku",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Brand Name",
+    "name": "brand_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Product Name",
+    "name": "item_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Manufacturer",
+    "name": "manufacturer",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Product ID",
+    "name": "external_product_id",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Product ID Type",
+    "name": "external_product_id_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Recommended Browse Nodes",
+    "name": "recommended_browse_nodes",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Depth Front To Back",
+    "name": "depth_front_to_back",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item depth Unit",
+    "name": "depth_front_to_back_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Width Side To Side",
+    "name": "depth_width_side_to_side",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Width Unit",
+    "name": "depth_width_side_to_side_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Height Floor To Top",
+    "name": "depth_height_floor_to_top",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Height Unit of Measure",
+    "name": "depth_height_floor_to_top_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Standard Price",
+    "name": "standard_price",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Quantity",
+    "name": "quantity",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Main Image URL",
+    "name": "main_image_url",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Outer Material Type",
+    "name": "outer_material_type1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Outer Material Type",
+    "name": "outer_material_type2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Outer Material Type",
+    "name": "outer_material_type3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Outer Material Type",
+    "name": "outer_material_type4",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Outer Material Type",
+    "name": "outer_material_type5",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Department",
+    "name": "department_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Fabric Type",
+    "name": "fabric_type1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Fabric Type",
+    "name": "fabric_type2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Fabric Type",
+    "name": "fabric_type3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Fabric Type",
+    "name": "fabric_type4",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Fabric Type",
+    "name": "fabric_type5",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Gender",
+    "name": "target_gender",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Age Range Description",
+    "name": "age_range_description",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shirt Size System",
+    "name": "shirt_size_system",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shirt Size Class",
+    "name": "shirt_size_class",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shirt Size Value",
+    "name": "shirt_size",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shirt Size To Range",
+    "name": "shirt_size_to",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Neck Size Value",
+    "name": "shirt_neck_size",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Neck Size To Value",
+    "name": "shirt_neck_size_to",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Sleeve Length Value",
+    "name": "shirt_sleeve_length",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Sleeve Length To Value",
+    "name": "shirt_sleeve_length_to",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shirt Body Type",
+    "name": "shirt_body_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shirt Height Type",
+    "name": "shirt_height_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Manufacturer Part Number",
+    "name": "part_number",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Watch Movement Type",
+    "name": "watch_movement_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_keywords1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_keywords2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_keywords3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_keywords4",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_keywords5",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Display",
+    "name": "display_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Is Product Expirable",
+    "name": "is_expiration_dated_product",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Footwear Size System",
+    "name": "footwear_size_system",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size Age Group",
+    "name": "footwear_age_group",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size Class",
+    "name": "footwear_size_class",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size Width",
+    "name": "footwear_width",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size",
+    "name": "footwear_size",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Color",
+    "name": "color_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Color Map",
+    "name": "color_map",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Other Image URL1",
+    "name": "other_image_url1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Parentage",
+    "name": "parent_child",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Parent SKU",
+    "name": "parent_sku",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Relationship Type",
+    "name": "relationship_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Variation Theme",
+    "name": "variation_theme",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "package_level",
+    "name": "package_level",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "package_contains_quantity",
+    "name": "package_contains_quantity",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "package_contains_identifier",
+    "name": "package_contains_identifier",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Update Delete",
+    "name": "update_delete",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "closure_type",
+    "name": "closure_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Product Exemption Reason",
+    "name": "gtin_exemption_reason",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Product Description",
+    "name": "product_description",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "model",
+    "name": "model",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Model Name",
+    "name": "model_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Care Instructions",
+    "name": "care_instructions1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Care Instructions",
+    "name": "care_instructions2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Care Instructions",
+    "name": "care_instructions3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Care Instructions",
+    "name": "care_instructions4",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Model Year",
+    "name": "model_year",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Grade Rating",
+    "name": "grade_rating",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Temperature Rating",
+    "name": "temperature_rating",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Lining Material",
+    "name": "inner_material_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Sole Material",
+    "name": "sole_material",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Heel Type",
+    "name": "heel_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Heel Height",
+    "name": "heel_height",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Heel Height Unit Of Measure",
+    "name": "heel_height_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Unit of measure of the height of the heel",
+    "name": "heel_height_string",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size Gender",
+    "name": "footwear_gender",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size To Range (If Range)",
+    "name": "footwear_to_size",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size Gender (If Unisex)",
+    "name": "footwear_gender_unisex",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size Width (If Unisex)",
+    "name": "footwear_width_unisex",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size (If Unisex)",
+    "name": "footwear_size_unisex",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shoe Size To Range (If Unisex and Range)",
+    "name": "footwear_to_size_unisex",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Included Features",
+    "name": "included_features",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Key Product Features",
+    "name": "bullet_point1",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Key Product Features",
+    "name": "bullet_point2",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Key Product Features",
+    "name": "bullet_point3",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Key Product Features",
+    "name": "bullet_point4",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Key Product Features",
+    "name": "bullet_point5",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_base1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_base2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Target Audience",
+    "name": "target_audience_base3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Size",
+    "name": "size_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Material Type",
+    "name": "material_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Style Name",
+    "name": "style_name",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Wattage",
+    "name": "wattage",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Collar Type",
+    "name": "collar_style",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Control Type",
+    "name": "control_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Fit Type",
+    "name": "fit_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "NeckStyle",
+    "name": "neck_style",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Pattern Style",
+    "name": "pattern_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Pocket Description",
+    "name": "pocket_description",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Special Size Type",
+    "name": "special_size_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Band Material Type",
+    "name": "band_material_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Case Size Thickness",
+    "name": "case_thickness",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Band Color",
+    "name": "band_color",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Clasp Type",
+    "name": "clasp_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Case Material Type",
+    "name": "case_material_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Water Resistance Depth",
+    "name": "water_resistance_depth",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Water Resistance Depth Unit Of Measure",
+    "name": "water_resistance_depth_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Case Thickness Unit of Measure",
+    "name": "case_thickness_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Number of cds",
+    "name": "number_of_cds",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Dial Color",
+    "name": "dial_color",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Bezel Material Type",
+    "name": "bezel_material_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Bezel Function",
+    "name": "bezel_function",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Crystal",
+    "name": "dial_window_material_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Calendar Type",
+    "name": "calendar_type",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Product Compliance Certificate",
+    "name": "required_product_compliance_certificate",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Weight Recommendation Unit Of Measure",
+    "name": "weight_recommendation_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Maximum Weight Recommendation",
+    "name": "maximum_weight_recommendation",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shipping Weight",
+    "name": "website_shipping_weight",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Website Shipping Weight Unit Of Measure",
+    "name": "website_shipping_weight_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Shape",
+    "name": "item_shape",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Length Unit Of Measure",
+    "name": "item_length_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Length",
+    "name": "item_length",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Width",
+    "name": "item_width",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Height",
+    "name": "item_height",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Width Unit Of Measure",
+    "name": "item_width_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Height Unit Of Measure",
+    "name": "item_height_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Band Width",
+    "name": "band_width",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Band Width Unit Of Measure",
+    "name": "band_width_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Case Diameter",
+    "name": "case_diameter",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Case Diameter Unit Of Measure",
+    "name": "case_diameter_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Lighting Facts Label",
+    "name": "lighting_facts_image_url",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Energy Guide Label",
+    "name": "energy_efficiency_image_url",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Country/Region of Origin",
+    "name": "country_of_origin",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Legal Disclaimer",
+    "name": "legal_disclaimer_description",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "USDA Hardiness Zone",
+    "name": "usda_hardiness_zone1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "USDA Hardiness Zone",
+    "name": "usda_hardiness_zone2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Batteries are Included",
+    "name": "are_batteries_included",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Item Weight",
+    "name": "item_weight",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Is this product a battery or does it utilize batteries?",
+    "name": "batteries_required",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Battery type/size",
+    "name": "battery_type1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Battery type/size",
+    "name": "battery_type2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Battery type/size",
+    "name": "battery_type3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "item_weight_unit_of_measure",
+    "name": "item_weight_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Number of batteries",
+    "name": "number_of_batteries1",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Number of batteries",
+    "name": "number_of_batteries2",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Number of batteries",
+    "name": "number_of_batteries3",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Watt hours per battery",
+    "name": "lithium_battery_energy_content",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Lithium Battery Packaging",
+    "name": "lithium_battery_packaging",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Lithium content (grams)",
+    "name": "lithium_battery_weight",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Number of Lithium-ion Cells",
+    "name": "number_of_lithium_ion_cells",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Number of Lithium Metal Cells",
+    "name": "number_of_lithium_metal_cells",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "label": "Battery composition",
+    "name": "battery_cell_composition",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Battery weight (grams)",
+    "name": "battery_weight",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "battery_weight_unit_of_measure",
+    "name": "battery_weight_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "lithium_battery_energy_content_unit_of_measure",
+    "name": "lithium_battery_energy_content_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "lithium_battery_weight_unit_of_measure",
+    "name": "lithium_battery_weight_unit_of_measure",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Applicable Dangerous Goods Regulations",
+    "name": "supplier_declared_dg_hz_regulation1",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Applicable Dangerous Goods Regulations",
+    "name": "supplier_declared_dg_hz_regulation2",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Applicable Dangerous Goods Regulations",
+    "name": "supplier_declared_dg_hz_regulation3",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Applicable Dangerous Goods Regulations",
+    "name": "supplier_declared_dg_hz_regulation4",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Applicable Dangerous Goods Regulations",
+    "name": "supplier_declared_dg_hz_regulation5",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "label": "Offer End Date",
+    "name": "offering_end_date",
+    "type": "text",
+    "value": ""
+  }
+]
+
+export default categoryFeatures;
