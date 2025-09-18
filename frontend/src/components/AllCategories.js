@@ -138,31 +138,44 @@ const AllCategories = () => {
       selector: row => row.CreatorRole,
       sortable: true,
     },
-    {
-      name: 'Actions',
-      cell: (row) => (
-        <div className="flex space-x-2">
-          <button 
-            onClick={() => handleEdit(row)}
-            className=" bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
-          >
-            Edit
-          </button>
-          <button 
-            onClick={() => handleView(row)}
-            className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
-          >
-            Show
-          </button>
-          <button 
-            onClick={() => handleCreateProduct(row)}
-            className="px-3 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 text-sm"
-          >
-            Create Product
-          </button>
-        </div>
-      ),
-    },
+    
+{
+  name: 'Actions',
+  cell: (row) => (
+    <div className="flex space-x-3">
+      {/* Edit Button */}
+      <button
+        onClick={() => handleEdit(row)}
+        className="p-2 rounded-full bg-blue-500 text-white shadow-md 
+                   hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+        title="Edit"
+      >
+        <FaEdit className="text-base" /> {/* smaller icon */}
+      </button>
+
+      {/* Show Button */}
+      <button
+        onClick={() => handleView(row)}
+        className="p-2 rounded-full bg-emerald-500 text-white shadow-md 
+                   hover:bg-emerald-600 focus:ring-2 focus:ring-emerald-400 transition-all duration-200"
+        title="Show"
+      >
+        <FaEye className="text-base" /> {/* smaller icon */}
+      </button>
+
+      {/* Create Product Button */}
+      <button
+        onClick={() => handleCreateProduct(row)}
+        className="p-2 rounded-full bg-purple-500 text-white shadow-md 
+                   hover:bg-purple-600 focus:ring-2 focus:ring-purple-400 transition-all duration-200"
+        title="Create Product"
+      >
+        <FaPlus className="text-base" /> {/* smaller icon */}
+      </button>
+    </div>
+  ),
+},
+
   ];
 
   // Overlay and Modal Styles
@@ -201,111 +214,149 @@ const AllCategories = () => {
     zIndex: 10,
   };
 
-  // Edit Modal Component
-  const EditModal = ({ category, onClose, onSave }) => {
-    const [formData, setFormData] = useState(category);
-    const [features, setFeatures] = useState(category.features);
+// Edit Modal Component
+const EditModal = ({ category, onClose, onSave }) => {
+  const [formData, setFormData] = useState(category);
+  const [features, setFeatures] = useState(category.features);
 
-    useEffect(() => {
-      setFormData(category);
-      setFeatures(category.features);
-    }, [category]);
+  useEffect(() => {
+    setFormData(category);
+    setFeatures(category.features);
+  }, [category]);
 
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    const handleFeatureToggle = (index) => {
-      const updatedFeatures = [...features];
-      updatedFeatures[index].checked = !updatedFeatures[index].checked;
-      setFeatures(updatedFeatures);
-    };
+  const handleFeatureToggle = (index) => {
+    const updatedFeatures = [...features];
+    updatedFeatures[index].checked = !updatedFeatures[index].checked;
+    setFeatures(updatedFeatures);
+  };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      onSave({
-        ...formData,
-        features: features
-      });
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave({
+      ...formData,
+      features: features,
+    });
+  };
 
-    return (
-      <div style={overlayStyle}>
-        <div style={modalStyle}>
-          <button style={closeBtnStyle} onClick={onClose} aria-label="Close" data-tooltip-id="close-edit" data-tooltip-content="Close"><FaTimes /></button>
-          <Tooltip id="close-edit" />
-          <div className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-center">Edit Category</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 mb-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Platform</label>
-                  <select
-                    name="platform"
-                    value={formData.platform}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                    required
+  return (
+    <div className="fixed inset-0 flex justify-center items-center z-50 px-4">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-xl border border-gray-200 max-h-[80vh] overflow-y-auto">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          data-tooltip-id="close-edit"
+          data-tooltip-content="Close"
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition"
+        >
+          <FaTimes className="w-5 h-5" />
+        </button>
+        <Tooltip id="close-edit" />
+
+        <div className="p-6">
+          <h2 className="text-xl font-bold mb-4 text-center">Edit Category</h2>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Name & Platform */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Platform
+                </label>
+                <select
+                  name="platform"
+                  value={formData.platform}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                >
+                  <option value="Amazon">Amazon</option>
+                  <option value="Flipkart">Flipkart</option>
+                  <option value="Meesho">Meesho</option>
+                  <option value="Ajio">Ajio</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Features */}
+            <div>
+              <h3 className="text-lg font-medium text-gray-700 mb-2">Features</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {features.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start p-2 border rounded-md hover:bg-gray-50 transition"
                   >
-                    <option value="Amazon">Amazon</option>
-                    <option value="Flipkart">Flipkart</option>
-                    <option value="Meesho">Meesho</option>
-                    <option value="Ajio">Ajio</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <h3 className="text-lg font-medium text-gray-700 mb-3">Features</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {features.map((feature, index) => (
-                    <div key={index} className="flex items-start">
-                      <div className="flex items-center h-5">
-                        <input
-                          type="checkbox"
-                          checked={feature.checked || false}
-                          onChange={() => handleFeatureToggle(index)}
-                          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </div>
-                      <div className="ml-3 text-sm">
-                        <label className="font-medium text-gray-700">
-                          {feature.label}
-                        </label>
-                        <p className="text-gray-500 mt-1">{feature.name}</p>
-                      </div>
+                    <input
+                      type="checkbox"
+                      checked={feature.checked || false}
+                      onChange={() => handleFeatureToggle(index)}
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+                    />
+                    <div className="ml-2 text-sm">
+                      <label className="font-medium text-gray-700">
+                        {feature.label}
+                      </label>
+                      {/* <p className="text-gray-500">{feature.name}</p> */}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
+            </div>
 
-              <div className="flex justify-end space-x-3 mt-6">
-                <button type="button" onClick={onClose} style={{ background: '#f3f4f6', borderRadius: '0.5rem', padding: '0.5rem 1rem' }} data-tooltip-id="cancel-edit" data-tooltip-content="Cancel"><FaTimes /></button>
-                <Tooltip id="cancel-edit" />
-                <button type="submit" style={{ background: '#2563eb', color: 'white', borderRadius: '0.5rem', padding: '0.5rem 1rem' }} data-tooltip-id="save-edit" data-tooltip-content="Save"><FaSave /></button>
-                <Tooltip id="save-edit" />
-              </div>
-            </form>
-          </div>
+            {/* Buttons */}
+            <div className="flex justify-end space-x-3 mt-3">
+              <button
+                type="button"
+                onClick={onClose}
+                data-tooltip-id="cancel-edit"
+                data-tooltip-content="Cancel"
+                className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center gap-2"
+              >
+                <FaTimes />
+              </button>
+              <Tooltip id="cancel-edit" />
+
+              <button
+                type="submit"
+                data-tooltip-id="save-edit"
+                data-tooltip-content="Save"
+                className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition flex items-center gap-2"
+              >
+                <FaSave />
+              </button>
+              <Tooltip id="save-edit" />
+            </div>
+          </form>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
+
+
 
   // View Modal Component
   const ViewModal = ({ category, onClose }) => {

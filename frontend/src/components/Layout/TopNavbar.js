@@ -5,7 +5,7 @@ const TopNavbar = ({ onMenuClick }) => {
   const { user, logout } = useAuth()
 
   return (
-    <nav className="z-10 bg-gradient-to-r from-blue-50 to-indigo-100 shadow-md px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-30">
+    <nav className="z-10 bg-white shadow-md px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-30">
 
       <div className="flex items-center space-x-3 pl-10">
         <span className="text-2xl font-extrabold text-blue-700 tracking-tight select-none"></span>

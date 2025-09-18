@@ -121,11 +121,11 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen  py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-5">
+          <div className="bg-gray-900 px-6 py-5">
             <h2 className="text-2xl font-bold text-white">Add New Category</h2>
             <p className="text-blue-100 mt-1">Configure your product category settings</p>
           </div>
@@ -193,7 +193,7 @@ const AddCategory = () => {
                       <label htmlFor={`feature-${feature.name}`} className="font-medium text-gray-700">
                         {feature.label}
                       </label>
-                      <p className="text-gray-500 mt-1">{feature.name}</p>
+                      {/* <p className="text-gray-500 mt-1">{feature.name}</p> */}
                     </div>
                   </div>
                 ))}

@@ -20,10 +20,7 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect('mongodb+srv://kashishjangid:kashishjangid123@cluster0.mbxux9e.mongodb.net/RoleBasedAuth')
 .then(() => {
   console.log('MongoDB connected');
 })
@@ -45,3 +42,12 @@ const Port = process.env.PORT || 5001;
 app.listen(Port, () => {
   console.log(`Server is running on port localhost:${Port}`);
 });
+
+
+// admin credentials
+// email: kashish.jangid@gonukkad.com
+// password: Kashish@0411
+
+// merchant credentials
+// email: ankit.kumar@gonukkad.com
+// password: Ankit@04
