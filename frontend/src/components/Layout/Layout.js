@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
         <button
           className={`sidebar-toggle fixed z-[100] top-[10px]
             ${isMobile ? (isSidebarOpen ? 'left-60 -translate-x-1/2' : 'left-4') : (isSidebarOpen ? 'md:left-[230px]' : 'md:left-4')}
-            p-3 w-12 h-12 flex items-center justify-center rounded-md bg-gray-200 text-blue-600 shadow-md transition-all duration-300 hover:bg-gray-300`}
+            p-3 w-12 h-12 flex items-center justify-center rounded-md  text-blue-600  transition-all duration-300 hover:bg-gray-300`}
           style={isMobile && isSidebarOpen ? { transform: 'translateX(-50%)' } : undefined}
           onClick={e => {
             e.stopPropagation();

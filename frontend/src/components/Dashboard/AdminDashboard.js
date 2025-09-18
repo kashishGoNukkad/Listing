@@ -125,7 +125,7 @@ import { Users, DollarSign, ShoppingBag, Settings, BarChart3 } from "lucide-reac
 
 const AdminDashboard = () => {
   return (
-    <div className="p-8 bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
+    <div className="p-2  ">
       <h1 className="text-3xl font-bold text-gray-800 mb-10">
         Admin Dashboard
       </h1>

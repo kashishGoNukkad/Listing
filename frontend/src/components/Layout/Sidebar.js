@@ -78,7 +78,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
   const isActiveParent = (menu) => menu.submenu && menu.submenu.some(item => location.pathname.startsWith(item.href));
 
   return (
-    <div className={`sidebar fixed md:relative z-40 md:z-auto bg-white w-64 min-h-screen px-4 py-6 border-r border-gray-200 transition-all duration-300 ${isSidebarOpen ? 'left-0' : '-left-64 md:left-0 md:w-20'}`}>
+    <div className={`sidebar fixed md:relative z-40 md:z-auto bg-white w-64 min-h-screen px-4 py-6 shadow-md transition-all duration-300 ${isSidebarOpen ? 'left-0' : '-left-64 md:left-0 md:w-20'}`}>
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         {isSidebarOpen ? (
