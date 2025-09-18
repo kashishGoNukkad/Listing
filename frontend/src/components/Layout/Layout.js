@@ -1,6 +1,10 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import TopNavbar from './TopNavbar';
+import { SquareChevronLeft, SquareChevronRight } from "lucide-react";
+import { BetweenHorizontalEnd, BetweenHorizontalStart, ChevronDown } from "lucide-react";
+
+
 
 const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(window.innerWidth >= 768);
@@ -34,7 +38,7 @@ const Layout = ({ children }) => {
         <button
           className={`sidebar-toggle fixed z-[100] top-[10px]
             ${isMobile ? (isSidebarOpen ? 'left-60 -translate-x-1/2' : 'left-4') : (isSidebarOpen ? 'md:left-[230px]' : 'md:left-4')}
-            p-3 w-12 h-12 flex items-center justify-center rounded-md bg-blue-100 text-blue-600 shadow-md transition-all duration-300 hover:bg-blue-200`}
+            p-3 w-12 h-12 flex items-center justify-center rounded-md bg-gray-200 text-blue-600 shadow-md transition-all duration-300 hover:bg-gray-300`}
           style={isMobile && isSidebarOpen ? { transform: 'translateX(-50%)' } : undefined}
           onClick={e => {
             e.stopPropagation();
@@ -42,12 +46,11 @@ const Layout = ({ children }) => {
           }}
           aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
         >
-          {isSidebarOpen ? (
-            // <span className="text-2xl">✕</span>
-            <img src="/sidebar-2.png" alt="Open sidebar" className="w-7 h-7 object-contain" />
-          ) : (
-            <img src="/sidebar.png" alt="Open sidebar" className="w-7 h-7 object-contain" />
-          )}
+        {isSidebarOpen ? (
+        <BetweenHorizontalEnd color="#403f3f" size={28} className="text-blue-600 transition-transform duration-300" />
+        ) : (
+        <BetweenHorizontalStart color="#403f3f" size={28} className="text-blue-600 transition-transform duration-300" />
+        )}
         </button>
         
         <TopNavbar />
