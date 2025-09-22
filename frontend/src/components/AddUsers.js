@@ -233,19 +233,20 @@
 
 import React, { useState } from "react";
 import axios from "../utils/api";
+import { LayoutDashboard} from "lucide-react";
 
 const roles = ["merchant", "user"];
 const featureList = [
-  { name: "Dashboard" },
-  { name: "Users", nested: ["All", "Add User", "Permissions"] },
-  { name: "Products", nested: ["All Products", "Add Product", "Categories"] },
-  { name: "Orders", nested: ["Recent Orders", "Completed", "Returns"] },
-  { name: "Analytics", nested: ["Sales", "Traffic", "Conversion"] },
-  { name: "Inventory", nested: ["Stock", "Low Stock", "Out of Stock"] },
-  { name: "Promotions", nested: ["Active", "Upcoming", "Expired"] },
-  { name: "Payments", nested: ["Received", "Pending", "Refunds"] },
-  { name: "Shipping", nested: ["In Transit", "Delivered", "Delayed"] },
-  { name: "Settings", nested: ["General", "Security", "Notifications"] },
+  { name: "Dashboard", iconKey: "dashboard" },
+  { name: "Users", iconKey: "users", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["All", "Add User", "Permissions"] },
+  { name: "Products", iconKey: "products", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["All Products", "Add Product", "Categories"] },
+  { name: "Orders", iconKey: "orders", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["Recent Orders", "Completed", "Returns"] },
+  { name: "Analytics", iconKey: "analytics", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["Sales", "Traffic", "Conversion"] },
+  { name: "Inventory", iconKey: "inventory", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["Stock", "Low Stock", "Out of Stock"] },
+  { name: "Promotions", iconKey: "promotions", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["Active", "Upcoming", "Expired"] },
+  { name: "Payments", iconKey: "payments", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["Received", "Pending", "Refunds"] },
+  { name: "Shipping", iconKey: "shipping", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["In Transit", "Delivered", "Delayed"] },
+  { name: "Settings", iconKey: "settings", icon: <LayoutDashboard color="#645e5e" size={20} />, nested: ["General", "Security", "Notifications"] },
 ];
 
 const AddUsers = () => {
@@ -310,12 +311,25 @@ const AddUsers = () => {
     setError("");
     setSuccess("");
     try {
+      // Prepare features with iconKey for DB
+      let featuresWithIcons = {};
+      if (form.roles.includes("merchant")) {
+        Object.keys(form.features).forEach((featureName) => {
+          const featureObj = featureList.find(f => f.name === featureName);
+          if (featureObj) {
+            featuresWithIcons[featureName] = {
+              iconKey: featureObj.iconKey || null,
+              nested: form.features[featureName]
+            };
+          }
+        });
+      }
       const payload = {
         username: form.username,
         email: form.email,
         password: form.password,
         role: form.roles[0] || "",
-        features: form.roles.includes("merchant") ? form.features : {},
+        features: form.roles.includes("merchant") ? featuresWithIcons : {},
       };
       const res = await axios.post("/adduser", payload);
       setSuccess(res.data.message || "User added successfully");

@@ -10,6 +10,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
   const location = useLocation();
   const [activeDropdown, setActiveDropdown] = useState(null);
 
+  console.log('User in Sidebar:', user);
   // Static links for admin
   const adminLinks = [
     { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard color="#645e5e" size={20} /> },
@@ -43,20 +44,38 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
     { name: 'Settings', href: '/dashboard/settings', icon: '⚙️' }
   ];
 
+  // Icon mapping for dynamic features
+  const iconMap = {
+    dashboard: <LayoutDashboard color="#645e5e" size={20} />,
+    users: <CircleUserRound color="#645e5e" size={20} />,
+    products: <FolderOpen color="#645e5e" size={20} />,
+    orders: <FolderOpen color="#645e5e" size={20} />,
+    analytics: <ChartLine color="#645e5e" size={20} />,
+    inventory: <FolderOpen color="#645e5e" size={20} />,
+    promotions: <FolderOpen color="#645e5e" size={20} />,
+    payments: <FolderOpen color="#645e5e" size={20} />,
+    shipping: <FolderOpen color="#645e5e" size={20} />,
+    settings: <Settings color="#645e5e" size={20} />,
+  };
+
   // Dynamic links
   const getDynamicLinks = (features) => {
     if (!features || typeof features !== 'object') return [];
-    return Object.entries(features).map(([feature, nested]) => ({
-      name: feature,
-      href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}`,
-      icon: '🔗',
-      submenu: Array.isArray(nested) && nested.length > 0
-        ? nested.map(n => ({
-            name: n,
-            href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}/${n.toLowerCase().replace(/\s+/g, '-')}`
-          }))
-        : undefined
-    }));
+    return Object.entries(features).map(([feature, value]) => {
+      const iconKey = value.iconKey;
+      const nested = value.nested;
+      return {
+        name: feature,
+        href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}`,
+        icon: iconMap[iconKey] || <FolderOpen color="#645e5e" size={20} />,
+        submenu: Array.isArray(nested) && nested.length > 0
+          ? nested.map(n => ({
+              name: n,
+              href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}/${n.toLowerCase().replace(/\s+/g, '-')}`
+            }))
+          : undefined
+      };
+    });
   };
 
   let links;
