@@ -10,13 +10,9 @@ const Profile = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    // Simulate API call with timeout
     const fetchProfile = async () => {
       try {
-        // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Create dummy profile data based on current user
         const dummyProfile = {
           username: user?.username || 'johndoe',
           email: user?.email || 'john@example.com',
@@ -27,149 +23,115 @@ const Profile = () => {
           phone: '+1 (555) 123-4567',
           address: '123 Main St, City, State 12345'
         };
-        
         setProfile(dummyProfile);
         setFormData(dummyProfile);
       } catch (err) {
         setError('Failed to fetch profile data');
-        console.error('Error fetching profile:', err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchProfile();
   }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Simulate API call with timeout
       setLoading(true);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Update profile with form data
       setProfile(formData);
       setIsEditing(false);
-      
-      // Show success message (you can use a toast notification here)
       alert('Profile updated successfully!');
     } catch (err) {
       setError('Failed to update profile');
-      console.error('Error updating profile:', err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-md">
         {error}
       </div>
     );
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">My Profile</h1>
-      
-      <div className="bg-white shadow-md rounded-lg p-6">
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-8">
+        My Profile
+      </h1>
+
+      <div className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 shadow-2xl rounded-2xl p-8">
         {!isEditing ? (
-          <div>
+          <>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">Personal Information</h2>
-              <button 
+              <h2 className="text-2xl font-bold text-gray-700">Personal Information</h2>
+              <button
                 onClick={() => setIsEditing(true)}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg transition duration-300"
               >
                 Edit Profile
               </button>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Username</label>
-                <p className="mt-1 text-sm text-gray-900">{profile.username}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
-                <p className="mt-1 text-sm text-gray-900">{profile.email}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">First Name</label>
-                <p className="mt-1 text-sm text-gray-900">{profile.firstName}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Last Name</label>
-                <p className="mt-1 text-sm text-gray-900">{profile.lastName}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Phone</label>
-                <p className="mt-1 text-sm text-gray-900">{profile.phone}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Address</label>
-                <p className="mt-1 text-sm text-gray-900">{profile.address}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Role</label>
-                <p className="mt-1 text-sm text-gray-900 capitalize">{profile.role}</p>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Member Since</label>
-                <p className="mt-1 text-sm text-gray-900">
-                  {new Date(profile.createdAt).toLocaleDateString()}
-                </p>
-              </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                ['Username', profile.username],
+                ['Email', profile.email],
+                ['First Name', profile.firstName],
+                ['Last Name', profile.lastName],
+                ['Phone', profile.phone],
+                ['Address', profile.address],
+                ['Role', profile.role],
+                ['Member Since', new Date(profile.createdAt).toLocaleDateString()]
+              ].map(([label, value]) => (
+                <div key={label} className="bg-white rounded-xl p-4 shadow hover:shadow-lg transition duration-300">
+                  <p className="text-sm font-medium text-gray-500">{label}</p>
+                  <p className="mt-1 text-gray-900 font-medium">{value}</p>
+                </div>
+              ))}
             </div>
-          </div>
+          </>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">Edit Profile</h2>
-              <div className="space-x-2">
-                <button 
+              <h2 className="text-2xl font-bold text-gray-700">Edit Profile</h2>
+              <div className="space-x-3">
+                <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors"
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-full transition duration-300"
                   disabled={loading}
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition duration-300"
                   disabled={loading}
                 >
                   {loading ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Username</label>
                 <input
@@ -177,11 +139,10 @@ const Profile = () => {
                   name="username"
                   value={formData.username || ''}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                   required
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
@@ -189,11 +150,10 @@ const Profile = () => {
                   name="email"
                   value={formData.email || ''}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                   required
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700">First Name</label>
                 <input
@@ -201,10 +161,9 @@ const Profile = () => {
                   name="firstName"
                   value={formData.firstName || ''}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700">Last Name</label>
                 <input
@@ -212,10 +171,9 @@ const Profile = () => {
                   name="lastName"
                   value={formData.lastName || ''}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700">Phone</label>
                 <input
@@ -223,18 +181,17 @@ const Profile = () => {
                   name="phone"
                   value={formData.phone || ''}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                 />
               </div>
-              
-              <div className="md:col-span-2">
+              <div className="md:col-span-2 lg:col-span-3">
                 <label className="block text-sm font-medium text-gray-700">Address</label>
                 <textarea
                   name="address"
                   value={formData.address || ''}
                   onChange={handleChange}
                   rows={3}
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                 />
               </div>
             </div>

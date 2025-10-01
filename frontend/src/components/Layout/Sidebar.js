@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { ChevronDown } from "lucide-react";
-import { LayoutDashboard,CircleUserRound,Settings,ChartLine,FolderOpen} from "lucide-react";
-
+import { LayoutDashboard, CircleUserRound, Settings, ChartLine, FolderOpen, LogOut } from "lucide-react";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Static links for admin
+  console.log('User in Sidebar:', user);
+
   const adminLinks = [
     { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard color="#645e5e" size={20} /> },
     { name: 'Users', href: '/dashboard/users', icon: <CircleUserRound color="#645e5e" />, submenu: [
@@ -24,7 +25,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
       { name: 'All Products', href: '/dashboard/categories/all-products'},
       { name: 'Permissions', href: '/dashboard/categories/permissions'}
     ] },
-    { name: 'Settings', href: '/dashboard/settings', icon: <Settings color="#645e5e" />, submenu: [
+    { name: 'Settings', href: '/dashboard/settings', icon: <Settings color="#645e5e"  />, submenu: [
       { name: 'General', href: '/dashboard/settings/general' },
       { name: 'Security', href: '/dashboard/settings/security' },
       { name: 'Notifications', href: '/dashboard/settings/notifications' }
@@ -43,20 +44,36 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
     { name: 'Settings', href: '/dashboard/settings', icon: '⚙️' }
   ];
 
-  // Dynamic links
+  const iconMap = {
+    dashboard: <LayoutDashboard color="#645e5e" size={20} />,
+    users: <CircleUserRound color="#645e5e" size={20} />,
+    products: <FolderOpen color="#645e5e" size={20} />,
+    orders: <FolderOpen color="#645e5e" size={20} />,
+    analytics: <ChartLine color="#645e5e" size={20} />,
+    inventory: <FolderOpen color="#645e5e" size={20} />,
+    promotions: <FolderOpen color="#645e5e" size={20} />,
+    payments: <FolderOpen color="#645e5e" size={20} />,
+    shipping: <FolderOpen color="#645e5e" size={20} />,
+    settings: <Settings color="#645e5e" size={20} />,
+  };
+
   const getDynamicLinks = (features) => {
     if (!features || typeof features !== 'object') return [];
-    return Object.entries(features).map(([feature, nested]) => ({
-      name: feature,
-      href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}`,
-      icon: '🔗',
-      submenu: Array.isArray(nested) && nested.length > 0
-        ? nested.map(n => ({
-            name: n,
-            href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}/${n.toLowerCase().replace(/\s+/g, '-')}`
-          }))
-        : undefined
-    }));
+    return Object.entries(features).map(([feature, value]) => {
+      const iconKey = value.iconKey;
+      const nested = value.nested;
+      return {
+        name: feature,
+        href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}`,
+        icon: iconMap[iconKey] || <FolderOpen color="#645e5e" size={20} />,
+        submenu: Array.isArray(nested) && nested.length > 0
+          ? nested.map(n => ({
+              name: n,
+              href: `/dashboard/${feature.toLowerCase().replace(/\s+/g, '-')}/${n.toLowerCase().replace(/\s+/g, '-')}`
+            }))
+          : undefined
+      };
+    });
   };
 
   let links;
@@ -82,7 +99,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         {isSidebarOpen ? (
-          <h2 className="text-xl font-semibold text-blue-600 tracking-wide">Navigation</h2>
+          <h2 className="text-xl font-semibold text-indigo-700 tracking-wide">Navigation</h2>
         ) : (
           <div className='mb-6'></div>
         )}
@@ -106,7 +123,6 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
                         <ChevronDown className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${
                         activeDropdown === link.name ? "rotate-180 text-indigo-600" : "text-gray-500"
                         }`} />
-
                       </>
                     )}
                   </button>
@@ -143,16 +159,72 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
 
       {/* Footer */}
       {isSidebarOpen && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white to-indigo-100">
-          <div className="flex items-center">
-            <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold mr-3">
-              {user?.name?.charAt(0) || 'U'}
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-900">{user?.name || 'User'}</p>
-              <p className="text-xs text-gray-500 capitalize">{user?.role || 'User'}</p>
+        <div className="absolute bottom-0 left-0 right-0">
+          <div
+            className="p-4 border-t border-gray-200 bg-white cursor-pointer"
+            onClick={() => setIsModalOpen(!isModalOpen)}
+          >
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold mr-3">
+                {user?.name?.charAt(0) || 'U'}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">{user?.name || 'User'}</p>
+                <p className="text-xs text-gray-500 capitalize">{user?.role || 'User'}</p>
+              </div>
             </div>
           </div>
+
+          {/* Popover Modal */}
+{isModalOpen && (
+  <div className="absolute bottom-12 left-full ml-2 w-60 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden">
+    {/* Top user info */}
+    <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-100 to-blue-50">
+      {/* Circular placeholder */}
+      <div className="w-12 h-12 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold text-lg">
+        {user?.name
+          ? user.name.split(" ").map(n => n[0]).join("").toUpperCase()
+          : "U"}
+      </div>
+      <p className="font-semibold text-gray-900">{user?.name || 'User'}</p>
+    </div>
+
+    <div className="flex flex-col p-2">
+      {/* Profile link */}
+      <Link
+        to="/dashboard/profile"
+        className="flex items-center px-3 py-2 rounded-lg hover:bg-indigo-50 transition-colors text-gray-800 font-medium"
+        onClick={() => setIsModalOpen(false)}
+      >
+        <CircleUserRound size={20} className="mr-3 text-blue-500" />
+        View Profile
+      </Link>
+
+      {/* Settings link */}
+      <Link
+        to="/dashboard/settings"
+        className="flex items-center px-3 py-2 rounded-lg hover:bg-green-50 transition-colors text-gray-800 font-medium"
+        onClick={() => setIsModalOpen(false)}
+      >
+        <Settings size={20} className="mr-3 text-green-500" />
+        Settings
+      </Link>
+
+      {/* Divider */}
+      <div className="border-t border-gray-100 my-2"></div>
+
+      {/* Logout button */}
+      <button
+        className="flex items-center px-3 py-2 rounded-lg text-red-600 hover:text-white hover:bg-red-600 transition-colors font-medium"
+        onClick={() => { logout(); setIsModalOpen(false); }}
+      >
+        <LogOut size={20} className="mr-3" />
+        Logout
+      </button>
+    </div>
+  </div>
+)}
+
         </div>
       )}
     </div>
