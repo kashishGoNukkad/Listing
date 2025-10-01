@@ -142,39 +142,37 @@ const AllCategories = () => {
 {
   name: 'Actions',
   cell: (row) => (
-    <div className="flex space-x-3">
+    <div className="flex items-center space-x-4">
       {/* Edit Button */}
       <button
         onClick={() => handleEdit(row)}
-        className="p-2 rounded-full bg-blue-500 text-white shadow-md 
-                   hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+        className="text-blue-500 hover:text-blue-700 transform hover:scale-110 transition-all duration-200"
         title="Edit"
       >
-        <FaEdit className="text-base" /> {/* smaller icon */}
+        <FaEdit className="text-lg" />
       </button>
 
       {/* Show Button */}
       <button
         onClick={() => handleView(row)}
-        className="p-2 rounded-full bg-emerald-500 text-white shadow-md 
-                   hover:bg-emerald-600 focus:ring-2 focus:ring-emerald-400 transition-all duration-200"
+        className="text-emerald-500 hover:text-emerald-700 transform hover:scale-110 transition-all duration-200"
         title="Show"
       >
-        <FaEye className="text-base" /> {/* smaller icon */}
+        <FaEye className="text-lg" />
       </button>
 
       {/* Create Product Button */}
       <button
         onClick={() => handleCreateProduct(row)}
-        className="p-2 rounded-full bg-purple-500 text-white shadow-md 
-                   hover:bg-purple-600 focus:ring-2 focus:ring-purple-400 transition-all duration-200"
+        className="text-purple-500 hover:text-purple-700 transform hover:scale-110 transition-all duration-200"
         title="Create Product"
       >
-        <FaPlus className="text-base" /> {/* smaller icon */}
+        <FaPlus className="text-lg" />
       </button>
     </div>
   ),
-},
+}
+
 
   ];
 
@@ -359,198 +357,228 @@ const EditModal = ({ category, onClose, onSave }) => {
 
 
   // View Modal Component
-  const ViewModal = ({ category, onClose }) => {
-    return (
-      <div style={overlayStyle}>
-        <div style={modalStyle}>
-          <button style={closeBtnStyle} onClick={onClose} aria-label="Close" data-tooltip-id="close-view" data-tooltip-content="Close"><FaTimes /></button>
-          <Tooltip id="close-view" />
-          <div className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-center">Category Details</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Name</h3>
-                <p className="text-lg">{category.name}</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Platform</h3>
-                <p className="text-lg">{category.platform}</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Created By</h3>
-                <p className="text-lg">{category.CreatedBy}</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Creator Email</h3>
-                <p className="text-lg">{category.CreatorEmail}</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Creator Role</h3>
-                <p className="text-lg">{category.CreatorRole}</p>
-              </div>
-            </div>
+const ViewModal = ({ category, onClose }) => {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm overflow-y-auto p-4">
 
-            <div className="mb-6">
-              <h3 className="text-lg font-medium text-gray-700 mb-3">Features</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {category.features.map((feature, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        type="checkbox"
-                        checked={feature.checked || false}
-                        readOnly
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label className="font-medium text-gray-700">
-                        {feature.label}
-                      </label>
-                      <p className="text-gray-500 mt-1">{feature.name}</p>
-                      {feature.value && (
-                        <p className="text-gray-500 mt-1">Value: {feature.value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="relative w-full max-w-3xl bg-white/80 backdrop-blur-md border border-white/30 rounded-3xl shadow-2xl p-6 mx-auto max-h-[90vh] overflow-y-auto animate-fadeIn">
 
-            <div className="flex justify-end mt-6">
-              <button onClick={onClose} style={{ background: '#2563eb', color: 'white', borderRadius: '0.5rem', padding: '0.5rem 1rem' }} data-tooltip-id="close-view-btn" data-tooltip-content="Close"><FaTimes /></button>
-              <Tooltip id="close-view-btn" />
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors text-2xl"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
+        {/* Title */}
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
+          📂 Category Details
+        </h2>
+
+        {/* Category Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+          {[
+            { label: "Name", value: category.name },
+            { label: "Platform", value: category.platform },
+            { label: "Created By", value: category.CreatedBy },
+            { label: "Creator Email", value: category.CreatorEmail },
+            { label: "Creator Role", value: category.CreatorRole },
+          ].map((info) => (
+            <div key={info.label} className="bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl p-4 shadow-sm hover:shadow-md transition-all">
+              <h3 className="text-sm font-medium text-gray-500">{info.label}</h3>
+              <p className="text-gray-800 text-lg mt-1 font-semibold">{info.value}</p>
             </div>
-          </div>
+          ))}
         </div>
-      </div>
-    );
-  };
 
-  // Create Product Modal Component
-  const CreateProductModal = ({ category, onClose, onSubmit }) => {
-    const [formData, setFormData] = useState({});
-    
-    // Get only the checked features for this category
-    const productFields = category.features.filter(feature => feature.checked);
-
-    useEffect(() => {
-      // Initialize form data with empty values for each field
-      const initialFormData = {};
-      productFields.forEach(field => {
-        initialFormData[field.name] = '';
-      });
-      setFormData(initialFormData);
-    }, [category]);
-
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    };
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      
-      // Prepare the product data to submit
-      const productData = {
-        category: category.name,
-        platform: category.platform,
-        categoryId: category._id,
-        fields: { ...formData }
-      };
-      
-      onSubmit(productData);
-    };
-
-    return (
-      <div style={overlayStyle}>
-        <div style={modalStyle}>
-          <button style={closeBtnStyle} onClick={onClose} aria-label="Close" data-tooltip-id="close-create" data-tooltip-content="Close"><FaTimes /></button>
-          <Tooltip id="close-create" />
-          <div className="p-6">
-            <h2 className="text-xl font-bold mb-4 text-center">Create Product - {category.name}</h2>
-            
-            {/* Display category name and platform as non-editable */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-gray-50 p-4 rounded-md">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Category Name</h3>
-                <p className="text-lg font-medium">{category.name}</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Platform</h3>
-                <p className="text-lg font-medium">{category.platform}</p>
-              </div>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="mb-6">
-                <h3 className="text-lg font-medium text-gray-700 mb-4">Product Details</h3>
-                <div className="grid grid-cols-1 gap-4">
-                  {productFields.map((field, index) => (
-                    <div key={index}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        {field.label}
-                      </label>
-                      <input
-                        type={field.type}
-                        name={field.name}
-                        value={formData[field.name] || ''}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        required
-                      />
-                    </div>
-                  ))}
+        {/* Features */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-700 mb-3 text-center md:text-left">
+            Features
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {category.features.map((feature, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 p-4 rounded-2xl border border-white/20 bg-white/30 backdrop-blur-sm shadow-sm hover:shadow-lg hover:bg-indigo-50 transition-all"
+              >
+                <input
+                  type="checkbox"
+                  checked={feature.checked || false}
+                  readOnly
+                  className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mt-1"
+                />
+                <div className="text-sm">
+                  <p className="font-medium text-gray-800">{feature.label}</p>
+                  <p className="text-gray-500 text-xs">{feature.name}</p>
+                  {feature.value && (
+                    <p className="text-gray-500 text-xs mt-1">Value: {feature.value}</p>
+                  )}
                 </div>
               </div>
-
-              <div className="flex justify-end space-x-3 mt-6">
-                <button type="button" onClick={onClose} style={{ background: '#f3f4f6', borderRadius: '0.5rem', padding: '0.5rem 1rem' }} data-tooltip-id="cancel-create" data-tooltip-content="Cancel"><FaTimes /></button>
-                <Tooltip id="cancel-create" />
-                <button type="submit" style={{ background: '#22c55e', color: 'white', borderRadius: '0.5rem', padding: '0.5rem 1rem' }} data-tooltip-id="create-product" data-tooltip-content="Create"><FaPlus /></button>
-                <Tooltip id="create-product" />
-              </div>
-            </form>
+            ))}
           </div>
         </div>
+
+        {/* Close Button */}
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 rounded-full bg-indigo-600 text-white font-semibold shadow-lg hover:bg-indigo-700 transition-all"
+          >
+            Close
+          </button>
+        </div>
       </div>
-    );
+    </div>
+  );
+};
+
+
+
+  // Create Product Modal Component
+const CreateProductModal = ({ category, onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({});
+
+  const productFields = category.features.filter(feature => feature.checked);
+
+  useEffect(() => {
+    const initialFormData = {};
+    productFields.forEach(field => {
+      initialFormData[field.name] = '';
+    });
+    setFormData(initialFormData);
+  }, [category]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // DataTable custom styles
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({
+      category: category.name,
+      platform: category.platform,
+      categoryId: category._id,
+      fields: { ...formData },
+    });
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4 overflow-y-auto">
+      
+      <div className="relative w-full max-w-2xl bg-white/80 backdrop-blur-md border border-white/30 rounded-2xl shadow-2xl p-6 mx-auto max-h-[85vh] overflow-y-auto animate-fadeIn">
+        
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl transition-colors"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
+        {/* Title */}
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          🛒 Create Product - {category.name}
+        </h2>
+
+        {/* Category Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl p-4 shadow-sm">
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">Category Name</h3>
+            <p className="text-gray-800 font-semibold">{category.name}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">Platform</h3>
+            <p className="text-gray-800 font-semibold">{category.platform}</p>
+          </div>
+        </div>
+
+        {/* Product Fields */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-700 mb-3 text-center md:text-left">Product Details</h3>
+          <div className="grid grid-cols-1 gap-4">
+            {productFields.map((field, index) => (
+              <div key={index}>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
+                <input
+                  type={field.type}
+                  name={field.name}
+                  value={formData[field.name] || ''}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  required
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-end space-x-3 mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition font-semibold"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-5 py-2 rounded-full bg-green-500 text-white font-semibold hover:bg-green-600 shadow-md transition"
+            >
+              Create Product
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  );
+};
+
   const customStyles = {
-    headCells: {
+    table: {
       style: {
-        backgroundColor: '#1e293b',
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: '1rem',
+        backgroundColor: "white",
+        borderRadius: "0.75rem",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        overflow: "hidden",
+      },
+    },
+    headRow: {
+      style: {
+        backgroundColor: "#f1f5f9",
+        borderBottom: "2px solid #e5e7eb",
+        fontWeight: "600",
+        fontSize: "13px",
+        color: "#374151",
       },
     },
     rows: {
       style: {
-        height: '20px',
-        fontSize: '1rem',
-        backgroundColor: '#f8fafc',
-        borderBottom: '1px solid #e5e7eb',
+        fontSize: "14px",
+        color: "#374151",
+        "&:hover": {
+          backgroundColor: "#f9fafb",
+        },
       },
     },
     pagination: {
       style: {
-        backgroundColor: '#fff',
-        color: '#1e293b',
+        borderTop: "1px solid #e5e7eb",
+        backgroundColor: "#fafafa",
       },
     },
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-2">
       {/* <ToastContainer /> */}
-      <h1 className="text-2xl font-bold mb-6">All Categories</h1>
+      <h1 className="text-2xl font-bold text-gray-800 tracking-tight text-start mb-6">All Categories</h1>
       
       {/* Filters */}
       <div className="bg-white p-4 rounded shadow mb-6">
@@ -591,6 +619,7 @@ const EditModal = ({ category, onClose, onSave }) => {
           pagination
           highlightOnHover
           customStyles={customStyles}
+          selectableRows
         />
       </div>
 

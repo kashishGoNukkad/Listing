@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema ({
     refreshToken: { 
         type: String 
     }
+    ,
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 },
     {
         collection: 'User',

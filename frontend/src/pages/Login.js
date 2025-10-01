@@ -167,14 +167,13 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex bg-gradient-to-r from-blue-50 via-pink-50 to-purple-50">
-      {/* Left Side Branding */}
       <div className="hidden md:flex w-1/2 flex-col justify-center items-center px-10 bg-gradient-to-br from-blue-100 via-pink-100 to-purple-100">
         <h1 className="text-4xl font-extrabold text-gray-700 tracking-tight mb-4">
           HighSpring | India
         </h1>
         <p className="text-gray-500 max-w-sm text-center">
-          Your smart platform to manage recruitment, candidates and interviews
-          with ease.  
+          Your smart platform to manage listing all products and services in one
+          place.
         </p>
         <img
           src="https://illustrations.popsy.co/white/work-from-home.svg"

@@ -338,34 +338,45 @@ const AllProducts = () => {
       sortable: true,
     },
   ];
-const customStyles = {
-    headCells: {
+
+    const customStyles = {
+    table: {
       style: {
-        backgroundColor: '#1e293b',
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: '1rem',
+        backgroundColor: "white",
+        borderRadius: "0.75rem",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        overflow: "hidden",
+      },
+    },
+    headRow: {
+      style: {
+        backgroundColor: "#f1f5f9",
+        borderBottom: "2px solid #e5e7eb",
+        fontWeight: "600",
+        fontSize: "13px",
+        color: "#374151",
       },
     },
     rows: {
       style: {
-        height: '20px',
-        fontSize: '1rem',
-        backgroundColor: '#f8fafc',
-        borderBottom: '1px solid #e5e7eb',
+        fontSize: "14px",
+        color: "#374151",
+        "&:hover": {
+          backgroundColor: "#f9fafb",
+        },
       },
     },
     pagination: {
       style: {
-        backgroundColor: '#fff',
-        color: '#1e293b',
+        borderTop: "1px solid #e5e7eb",
+        backgroundColor: "#fafafa",
       },
     },
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">All Products</h1>
+      <h1 className="text-2xl font-bold text-gray-800 tracking-tight mb-6 text-start">All Products</h1>
       {/* <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -398,6 +409,7 @@ const customStyles = {
           pagination
           highlightOnHover
           customStyles={customStyles}
+          selectableRows
         />
       </div>
     </div>

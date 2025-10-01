@@ -214,13 +214,67 @@ const resetPassword = async (req, res) => {
   }
 };
 
+
+// Edit user controller
+const editUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, email, role, features } = req.body;
+    const user = await authModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (role) user.role = role;
+    if (features) user.features = features;
+    
+
+    await user.save();
+    res.status(200).json({ message: 'User updated successfully.', user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      features: user.features
+    }});
+  } catch (error) {
+    console.error('Edit user error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await authModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+  
+    user.deleted = true;
+  // user.password = 'deleted_user_password';
+  // user.features = {};
+  // // user.role = 'user'; 
+  // user.refreshToken = '';
+  await user.save();
+  res.status(200).json({ message: 'User access removed, user retained in database.' });
+  } catch (error) {
+    console.error('Delete user error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
-    signup,
-    login,
-    refresh,
-    logout,
-    addUser,
-    getAllUsers,
-    forgotPassword,
-    resetPassword
+  signup,
+  login,
+  refresh,
+  logout,
+  addUser,
+  getAllUsers,
+  forgotPassword,
+  resetPassword,
+  editUser,
+  deleteUser
 };
